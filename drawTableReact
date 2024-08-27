@@ -1,0 +1,77 @@
+import React, { useState } from 'react';
+
+const App = () => {
+  const [data, setData] = useState({ rows: 0, cols: 0 });
+
+  const handleRow = (e) => {
+    setData({ ...data, rows: Number(e.target.value) });
+  };
+
+  const handleCol = (e) => {
+    setData({ ...data, cols: Number(e.target.value) });
+  };
+
+ const generateTableData = () => {
+    const { rows, cols } = data;
+    const tableData = Array.from({ length: rows }, () => Array(cols).fill(0));
+
+    let counter = 1;
+
+    for (let col = 0; col < cols; col++) {
+      if (col % 2 === 0) {
+        // Even columns (ascending)
+        for (let row = 0; row < rows; row++) {
+          tableData[row][col] = counter++;
+        }
+      } else {
+        // Odd columns (descending)
+        for (let row = rows - 1; row >= 0; row--) {
+          tableData[row][col] = counter++;
+        }
+      }
+    }
+
+    return tableData;
+  };
+
+
+  const tableData = generateTableData();
+
+  return (
+    <>
+      <div>
+        Enter no of rows:
+        <input
+          value={data.rows}
+          type="number"
+          onChange={handleRow}
+          placeholder="enter number"
+        />
+      </div>
+      <div>
+        Enter no of columns:
+        <input
+          value={data.cols}
+          type="number"
+          onChange={handleCol}
+          placeholder="enter number"
+        />
+      </div>
+      <button>Submit</button>
+
+      <table border="1" style={{ marginTop: '20px' }}>
+        <tbody>
+          {tableData.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {row.map((num, colIndex) => (
+                <td key={colIndex}>{num}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  );
+};
+
+export default App;
