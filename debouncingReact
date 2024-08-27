@@ -1,0 +1,58 @@
+import React, { useState,useEffect } from 'react';
+
+const App = () => {
+  const [search, setSearch] = useState("");
+    const [debouncedSearch,setDebouncedSearch]=useState("");
+const cars = [
+  "Toyota Corolla",
+  "Honda Civic",
+  "Ford Focus",
+  "Chevrolet Malibu",
+  "Nissan Altima",
+  "Hyundai Elantra",
+  "Volkswagen Jetta",
+  "Mazda 3",
+  "Subaru Impreza",
+  "Kia Optima",
+  "BMW 3 Series",
+  "Mercedes-Benz C-Class",
+  "Audi A4",
+  "Tesla Model 3",
+  "Lexus IS",
+  "Jaguar XE",
+  "Volvo S60",
+  "Acura TLX",
+  "Infiniti Q50",
+  "Cadillac ATS"
+];
+   
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+  };
+useEffect(()=>{
+ const timeout= setTimeout(()=>{setDebouncedSearch(search)},500)
+    return  () =>{clearInterval(timeout)}
+},[search])
+    
+    const res=cars.filter((val)=>val.toLowerCase().includes(debouncedSearch.toLowerCase()));
+    
+
+console.log("res",res)
+  return (
+    <>
+      <div>
+        Search:
+        <input
+          value={search}
+        
+          onChange={handleSearch}
+          placeholder="search..."
+        />
+      </div>
+        {res.map((data)=><li>{data}</li>)}
+      
+    </>
+  );
+};
+
+export default App;
