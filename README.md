@@ -1,2 +1,2 @@
 # Js-questions
-This repo contains js interview questions
+This repo contains js and react interview questions
