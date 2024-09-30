@@ -1,0 +1,15 @@
+nums = [2,3,11,15], target = 6
+
+const sum=(nums,target)=>{
+  for (let i=0;i<nums.length;i++)
+  {
+    let pair=target-nums[i]
+    let index=nums.indexOf(pair)
+    if(index!==-1 )
+    {
+      return [i,index]
+    }
+  }
+}
+
+console.log(sum(nums,target))
