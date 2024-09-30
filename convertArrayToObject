@@ -1,0 +1,7 @@
+const arr = ['apple', 'banana', 'cherry'];
+const res=arr.reduce((acc,curr,index)=>{
+  acc[index]=curr
+  return acc
+},{})
+
+console.log("res",res)
