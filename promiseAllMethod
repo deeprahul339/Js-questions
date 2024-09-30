@@ -1,0 +1,25 @@
+const fetchUserData = () => fetch('/api/user').then((res) => res.json());
+const fetchPostData = () => fetch('/api/posts').then((res) => res.json());
+const fetchCommentData = () => fetch('/api/comments').then((res) => res.json());
+
+const fetchAllData = async () => {
+  try {
+    // Call all APIs simultaneously
+    const [userData, postData, commentData] = await Promise.all([
+      fetchUserData(),
+      fetchPostData(),
+      fetchCommentData()
+    ]);
+
+    // Log the results
+    console.log('User Data:', userData);
+    console.log('Post Data:', postData);
+    console.log('Comment Data:', commentData);
+    
+    // You can now process or display the combined results
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+fetchAllData();
