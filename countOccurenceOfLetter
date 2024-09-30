@@ -1,0 +1,15 @@
+function countOccurrences(s) {
+  const occurrences = {};
+
+  for (let char of s) {
+    if (char !== ' ') { // Ignore spaces
+      occurrences[char] = occurrences[char] ? occurrences[char] + 1 : 1;
+    }
+  }
+
+  return occurrences;
+}
+
+const s = "hello world";
+const result = countOccurrences(s);
+console.log(result);
