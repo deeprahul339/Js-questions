@@ -1,0 +1,11 @@
+const multiply = (a) => {
+  return (b) => {
+    if (b !== undefined) {
+      return multiply(a * b);
+    }
+    return a;
+  };
+};
+
+// Example usage:
+console.log(multiply(3)(4)(5)()); // Output: 60
