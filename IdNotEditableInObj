@@ -1,0 +1,16 @@
+const user={
+    id:123,
+    name:'jhon',
+    age:28,
+    address:{
+        city:'Mummbai',
+        state:'mahar'
+    }
+}
+
+Object.defineProperty(user,'id',{
+    writable:false,
+    configurable:false
+})
+user.id=234
+console.log("id",user.id)
