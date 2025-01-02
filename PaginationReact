@@ -1,0 +1,141 @@
+import { useState, useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import { Button } from '@mui/material';
+
+const Pagination = () => {
+  const [todos, setTodos] = useState([]);
+  const [todoPerPage, setTodosPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loader, setLoader] = useState(true);
+
+  useEffect(() => {
+    fetch(`https://dummyjson.com/posts?limit=100`)
+      .then((res) => res.json())
+      .then((res) => {
+        setTodos(res.posts), setLoader(false);
+      });
+  }, []);
+ 
+  const totalNumberOfpages = Math.ceil(todos.length / todoPerPage);
+  const indexOflastTodo = currentPage * todoPerPage;
+  const indexOfFirstTodo = indexOflastTodo - todoPerPage;
+  const visibleTodos = todos.slice(indexOfFirstTodo, indexOflastTodo);
+  const pages = [...Array(totalNumberOfpages + 1).keys()].slice(1);
+
+  const handleSelect = (e: any) => {
+    setTodosPerPage(e.target.value);
+  };
+
+  return (
+    <>
+      {loader ? (
+        <CircularProgress />
+      ) : (
+        <div>
+          <div>
+            Select Todos per page{' '}
+            <select value={todoPerPage} onChange={handleSelect}>
+              <option value={10}>10</option>
+              <option value={15}>15</option>
+              <option value={20}>20</option>
+              <option value={25}>25</option>
+            </select>
+          </div>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, auto)',
+              marginTop: '20px',
+            }}
+          >
+            {visibleTodos.map((todo: any) => (
+              <div
+                key={todo.id}
+                style={{
+                  width: '200px',
+                  height: '200px',
+                  border: '1px solid grey',
+                  borderRadius: '10px',
+                  marginBottom: '10px',
+                  padding: '10px',
+                  backgroundColor: 'blanchedalmond',
+                }}
+              >
+                <h2
+                  style={{
+                    display: '-webkit-box', // Creates a flexible box layout
+                    WebkitBoxOrient: 'vertical', // Specifies the orientation of the box (vertical)
+                    overflow: 'hidden', // Hides overflowing content
+                    WebkitLineClamp: 1, // Limits the text to 3 lines
+                    textOverflow: 'ellipsis', // Adds an ellipsis for truncated text
+                    lineHeight: '1.5', // Optional: Set line height for better readability
+                    maxHeight: '4.5em', // Optional: Set maximum height (3 lines * 1.5 line height)
+                  }}
+                >
+                  {todo.title}
+                </h2>
+                <p
+                  style={{
+                    display: '-webkit-box', // Creates a flexible box layout
+                    WebkitBoxOrient: 'vertical', // Specifies the orientation of the box (vertical)
+                    overflow: 'hidden', // Hides overflowing content
+                    WebkitLineClamp: 2, // Limits the text to 3 lines
+                    textOverflow: 'ellipsis', // Adds an ellipsis for truncated text
+                    lineHeight: '1.5', // Optional: Set line height for better readability
+                    maxHeight: '4.5em', 
+                  }}
+                >
+                  {todo.body}
+                </p>
+                <p>
+                  {' '}
+                  <span style={{ color: 'blue' }}>Views:</span>
+                  {todo.views}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: '10px' }}>
+            <Button
+              style={{
+                padding: '10px',
+              }}
+              variant="contained"
+              disabled={currentPage == 1}
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+            >
+              prev
+            </Button>
+            {pages.map((page) => (
+              <Button
+                onClick={() => {
+                  setCurrentPage(page);
+                }}
+                variant={currentPage == page ? 'contained' : 'outlined'}
+                style={{
+                  marginInline: '10px ',
+                  padding: '10px',
+                }}
+                key={page}
+              >
+                {page}
+              </Button>
+            ))}
+            <Button
+              style={{
+                padding: '10px',
+              }}
+              variant="contained"
+              disabled={currentPage == totalNumberOfpages}
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              next
+            </Button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Pagination;
