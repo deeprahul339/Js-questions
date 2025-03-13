@@ -1,0 +1,46 @@
+// JavaScript Code to check if two Strings are anagram of 
+// each other using Hash map
+
+function areAnagrams(s1, s2) {
+    
+    // Create a hashmap to store character frequencies
+    const charCount = {};
+    
+    // Count frequency of each character in string s1
+    for (let ch of s1) 
+        {
+            if(charCount[ch])
+            {
+                charCount[ch]+=1
+            }
+            else{
+                charCount[ch]=1
+            }
+        }
+
+    // Count frequency of each character in string s2
+    for (let ch of s2) 
+        {
+           if(charCount[ch])
+            {
+                charCount[ch]-=1
+            }
+            else{
+                charCount[ch]=1
+            }
+        }
+
+    // Check if all frequencies are zero
+    for (let key in charCount) {
+        if (charCount[key] !== 0) {
+            return false;
+        }
+    }
+    
+    // If all conditions satisfied, they are anagrams
+    return true;
+}
+
+const s1 = "rahul";
+const s2 = "luhar";
+console.log(areAnagrams(s1, s2) ? "true" : "false");
