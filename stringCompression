@@ -1,0 +1,20 @@
+ const s='aaabbc';
+ const obj={}
+let str=''
+for (let i of s)
+{
+    if(obj[i])
+    {
+        obj[i]+=1
+    }
+    else{
+        obj[i]=1
+    }
+}
+for(let key in obj)
+{
+    str+=`${key}${obj[key]}`
+}
+console.log(str)
+
+
