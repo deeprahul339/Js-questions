@@ -1,0 +1,11 @@
+
+let str='geeksforgeeks';
+let pat='geeks'
+let indexes=[];
+let index=str.indexOf(pat);
+while(index!=-1)
+{
+    indexes.push(index);
+index=str.indexOf(pat,index+1)
+}
+console.log(indexes)
