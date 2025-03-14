@@ -1,0 +1,17 @@
+const longestCommonPrefix=(arr)=>{
+    arr.sort()
+    let first=arr[0];
+    let last=arr[arr.length-1];
+    let min=Math.min(first.length,last.length);
+    let i=0;
+    while(i<min&&first[i]===last[i])
+    {
+        i++;
+    }
+    
+    return first.substring(0,i)
+    
+}
+
+let arr = ["geeksforgeeks", "geeks", "geek", "geezer"];
+console.log(longestCommonPrefix(arr) );
