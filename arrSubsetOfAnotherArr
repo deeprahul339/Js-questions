@@ -1,0 +1,25 @@
+function isSubset(a, b) {
+
+    // Create a hash set and insert all elements of a
+    const hashSet = new Set(a);
+
+    // Check each element of b in the hash set
+    for (const num of b) {
+        if (!hashSet.has(num)) {
+            return false;
+        }
+    }
+
+    // If all elements of b are found in the hash set
+    return true;
+}
+
+// Driver code
+const a = [11, 1, 13, 21, 3, 7];
+const b = [11, 3, 7, 1];
+
+if (isSubset(a, b)) {
+    console.log("true");
+} else {
+    console.log("false");
+}
