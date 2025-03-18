@@ -1,0 +1,11 @@
+function addBinary(a, b) {
+    let num1 = BigInt('0b' + a);  // Convert binary string to BigInt
+    let num2 = BigInt('0b' + b);  // Convert binary string to BigInt
+
+    let sum = num1 + num2;        // Add the two BigInts
+
+    return sum.toString(2);       // Convert sum back to binary string
+}
+
+// Example usage:
+console.log(addBinary("1101", "1011")); // Output: "11000"
