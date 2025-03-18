@@ -1,0 +1,16 @@
+function uniqueDigitNumbers(start, end) {
+    let result = [];
+
+    for (let num = start; num <= end; num++) {
+        let strNum = num.toString();
+        let uniqueDigits = new Set(strNum);
+
+        if (uniqueDigits.size === strNum.length) {
+            result.push(num);
+        }
+    }
+
+    return result;
+}
+
+console.log(uniqueDigitNumbers(10, 12)); // Output: [10, 12]
