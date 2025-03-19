@@ -1,0 +1,11 @@
+const myCurry=(a)=>{
+    return (b)=>{
+        if(b!==undefined)
+        {
+            return myCurry(a+b);
+        }
+        return a;
+    }
+}
+const callCurry=myCurry(4)(3)(23)
+console.log(callCurry())
