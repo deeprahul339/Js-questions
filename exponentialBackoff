@@ -1,0 +1,13 @@
+function retryWithBackoff(fn, retries = 5, delay = 1000) {
+  return fn().catch(err => {
+    if (retries === 0) throw err;
+    return new Promise(resolve => {
+      setTimeout(resolve, delay);
+    }).then(() => retryWithBackoff(fn, retries - 1, delay * 2));
+  });
+}
+
+// Usage: a function returning a Promise
+retryWithBackoff(() => fetch("https://api.example.com/data"))
+  .then(response => console.log("Success", response))
+  .catch(error => console.error("Failed after retries", error));
